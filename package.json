@@ -30,7 +30,7 @@
   ],
   "license": "MIT",
   "main": "lib/async-task-queue.js",
-  "name": "async-task-queue",
+  "name": "node-async-task-queue",
   "repository": {
     "type": "git",
     "url": "https://github.com/AlexanderSychev/async-task-queue.git"
@@ -41,5 +41,5 @@
   },
   "type": "module",
   "types": "src/index.ts",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

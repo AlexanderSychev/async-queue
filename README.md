@@ -7,17 +7,17 @@ Simple async tasks queue implementation for JavaScript
 ### For Node.JS or bundlers
 
 ```shell
-npm i async-task-queue --save
+npm i node-async-task-queue --save
 ```
 
 Package available as CommonJS and as EcmaScript module:
 
 ```javascript
 // Import as CommonJS Module
-const { AsyncQueye } = require('async-task-queue');
+const { AsyncQueye } = require('node-async-task-queue');
 
 // Import as ECMAScript Module
-import { AsyncQueye } from 'async-task-queue';
+import { AsyncQueye } from 'node-async-task-queue';
 ```
 
 ### For browser
@@ -25,7 +25,7 @@ import { AsyncQueye } from 'async-task-queue';
 Just include script to your HTML page:
 
 ```html
-<script src="https://unpkg.com/async-task-queue@1.0.0/async-task-queue.min.js"
+<script src="https://unpkg.com/node-async-task-queue@1.0.0/async-task-queue.min.js"
 ```
 
 Library will be available as `asyncTaskQueue` global variable:
@@ -39,7 +39,7 @@ const queue = new asyncTaskQueue.AsyncQueue();
 First of all, you need to create queue instance:
 
 ```javascript
-import { AsyncQueye } from 'async-task-queue';
+import { AsyncQueye } from 'node-async-task-queue';
 
 const queue = new AsyncQueye();
 ```
