@@ -25,7 +25,7 @@ import { AsyncQueye } from 'node-async-task-queue';
 Just include script to your HTML page:
 
 ```html
-<script src="https://unpkg.com/node-async-task-queue@1.0.0/async-task-queue.min.js"
+<script src="https://unpkg.com/node-async-task-queue@1.0.0/umd/async-task-queue.min.js"
 ```
 
 Library will be available as `asyncTaskQueue` global variable:
