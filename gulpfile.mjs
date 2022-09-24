@@ -106,7 +106,7 @@ export async function bundleUMDModule() {
     sourcemap: 'inline',
     file: join(UMD_DIR, 'async-task-queue.min.js'),
     format: 'umd',
-    name: 'asyncQueue',
+    name: 'asyncTaskQueue',
   });
   await bundle.close();
 }

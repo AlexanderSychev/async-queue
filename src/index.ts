@@ -19,12 +19,12 @@
 
 export type { TaskBody, TaskResult } from './types';
 
-import { AsyncQueue } from './async-queue';
-export { AsyncQueue };
+import { AsyncTaskQueue } from './async-task-queue';
+export { AsyncTaskQueue };
 
 declare global {
   interface AsyncQueueConstructor {
-    new(): AsyncQueue;
+    new(): AsyncTaskQueue;
   }
 
   interface AsyncQueueGlobal {
@@ -32,6 +32,6 @@ declare global {
   }
 
   interface Window {
-    asyncQueue: AsyncQueueGlobal;
+    asyncTaskQueue: AsyncQueueGlobal;
   }
 }

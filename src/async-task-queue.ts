@@ -22,7 +22,7 @@ import type { TaskBody, TaskResult } from './types';
 import { TaskEventType } from './types';
 
 /** Queue structure */
-export class AsyncQueue {
+export class AsyncTaskQueue {
   /** Tasks queue array */
   private queue: Task[] = [];
 

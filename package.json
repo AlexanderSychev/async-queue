@@ -23,11 +23,6 @@
     "require": "./lib/async-task-queue.js",
     "import": "./lib/async-task-queue.mjs"
   },
-  "files": [
-    "./lib/async-task-queue.js",
-    "./lib/async-task-queue.mjs",
-    "./umd/async-task-queue.min"
-  ],
   "keywords": [
     "async",
     "task",
