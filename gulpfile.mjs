@@ -32,14 +32,14 @@ import { terser } from 'rollup-plugin-terser';
 /** Project root directory */
 const PROJECT_ROOT_DIR = fileURLToPath(new URL('.', import.meta.url));
 
-/** Typescript configuration file */
-const TS_CONFIG = join(PROJECT_ROOT_DIR, 'tsconfig.json');
-
 /** Source code directory */
 const SRC_DIR = join(PROJECT_ROOT_DIR, 'src');
 
 /** Bundled code directory */
 const LIB_DIR = join(PROJECT_ROOT_DIR, 'lib');
+
+/** UMD version directory (for "unpkg.com") */
+const UMD_DIR = join(PROJECT_ROOT_DIR, 'umd')
 
 // Utils
 
@@ -56,9 +56,10 @@ async function cleanDir(dir) {
 
 // Cleaning tasks
 
-/** Clean {@link LIB_DIR} directory */
-export function clean() {
-  return cleanDir(LIB_DIR);
+/** Clean compiled code directories */
+export async function clean() {
+  await cleanDir(LIB_DIR);
+  await cleanDir(UMD_DIR);
 }
 
 // Build tasks
@@ -71,7 +72,7 @@ function createRollupBundle() {
         exportConditions: ['node'],
       }),
       rollupPluginTypeScript(),
-      // terser(),
+      terser(),
     ],
   });
 }
@@ -98,20 +99,20 @@ export async function bundleECMAScriptModule() {
   await bundle.close();
 }
 
-/** Make browser IIFE bundle (for CDN) */
-export async function bundleIIFEForBrowser() {
+/** Make UMD bundle (for CDN) */
+export async function bundleUMDModule() {
   const bundle = await createRollupBundle();
   await bundle.write({
     sourcemap: 'inline',
-    file: join(LIB_DIR, 'async-task-queue.browser.js'),
-    format: 'iife',
+    file: join(UMD_DIR, 'async-task-queue.min.js'),
+    format: 'umd',
     name: 'asyncQueue',
   });
   await bundle.close();
 }
 
 /** Common bundling task */
-export const build = gulp.parallel(bundleCommonJS, bundleECMAScriptModule, bundleIIFEForBrowser);
+export const build = gulp.parallel(bundleCommonJS, bundleECMAScriptModule, bundleUMDModule);
 
 /** Full building task */
 export default gulp.series(clean, build);
