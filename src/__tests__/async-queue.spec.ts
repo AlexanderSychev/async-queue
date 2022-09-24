@@ -1,20 +1,44 @@
 import { AsyncQueue } from '../async-queue';
+import { successTask, SUCCESS_MESSAGE, failedTask, FAILED_MESSAGE } from './test-helpers';
 
-/** Simple sleep promise for async tests */
-const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
-
-test('"AsyncQueue.push" tests', async () => {
+test('If queue is empty then task will be executed immediately', async () => {
   const queue = new AsyncQueue();
+  const result = await queue.push(successTask, 300);
+  expect(result).toEqual({
+    args: [300],
+    error: null,
+    result: SUCCESS_MESSAGE,
+  });
+});
 
-  const task01 = jest.fn(async () => sleep(500));
-  const task02 = jest.fn(async () => sleep(100));
-  const task03 = jest.fn(async () => sleep(600));
+test('If queue is not empty then task will be executed after the previous task', async () => {
+  const queue = new AsyncQueue();
+  queue.push(successTask, 700);
+  const result = await queue.push(successTask, 300);
+  expect(result).toEqual({
+    args: [300],
+    error: null,
+    result: SUCCESS_MESSAGE,
+  });
+});
 
-  queue.push(task01);
-  queue.push(task02);
-  await queue.push(task03);
+test('If a task in the queue fails the rest of the tasks will still be executed', async () => {
+  const queue = new AsyncQueue();
+  queue.push(failedTask, 700);
+  const result = await queue.push(successTask, 300);
+  expect(result).toEqual({
+    args: [300],
+    error: null,
+    result: SUCCESS_MESSAGE,
+  });
+});
 
-  expect(task01).toHaveBeenCalled();
-  expect(task02).toHaveBeenCalled();
-  expect(task03).toHaveBeenCalled();
+test('If task failed with error then method returns not null "error" property in result', async () => {
+  const queue = new AsyncQueue();
+  const result = await queue.push(failedTask, 300);
+  expect(result).toEqual({
+    args: [300],
+    error: new Error(FAILED_MESSAGE),
+    result: null,
+  });
 });

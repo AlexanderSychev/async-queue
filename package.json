@@ -30,7 +30,7 @@
   ],
   "license": "MIT",
   "main": "lib/async-task-queue.js",
-  "name": "async-queue",
+  "name": "async-task-queue",
   "scripts": {
     "build": "gulp",
     "test": "jest --coverage"
